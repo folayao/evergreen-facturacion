@@ -5,6 +5,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator typegraphql {
+  provider           = "typegraphql-prisma"
+  output             = "../prisma/generated/type-graphql"
+  emitTranspiledCode = true
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -32,7 +38,7 @@ model Factura {
   moneda     String   @db.VarChar(3)
   monto      Float
   pais       String
-  esEfectivo String? @default("efectivo")
+  esEfectivo String?  @default("efectivo")
   published  Boolean  @default(true)
   cliente    User     @relation(fields: [clienteId], references: [id])
   clienteId  Int

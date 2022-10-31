@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Button, MenuItem, Select } from '@mui/material';
+import { PrismaClient } from '@prisma/client';
 
 interface State {
     amount: string;

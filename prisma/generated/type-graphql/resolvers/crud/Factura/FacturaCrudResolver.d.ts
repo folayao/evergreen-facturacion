@@ -1,0 +1,31 @@
+import { GraphQLResolveInfo } from "graphql";
+import { AggregateFacturaArgs } from "./args/AggregateFacturaArgs";
+import { CreateManyFacturaArgs } from "./args/CreateManyFacturaArgs";
+import { CreateOneFacturaArgs } from "./args/CreateOneFacturaArgs";
+import { DeleteManyFacturaArgs } from "./args/DeleteManyFacturaArgs";
+import { DeleteOneFacturaArgs } from "./args/DeleteOneFacturaArgs";
+import { FindFirstFacturaArgs } from "./args/FindFirstFacturaArgs";
+import { FindManyFacturaArgs } from "./args/FindManyFacturaArgs";
+import { FindUniqueFacturaArgs } from "./args/FindUniqueFacturaArgs";
+import { GroupByFacturaArgs } from "./args/GroupByFacturaArgs";
+import { UpdateManyFacturaArgs } from "./args/UpdateManyFacturaArgs";
+import { UpdateOneFacturaArgs } from "./args/UpdateOneFacturaArgs";
+import { UpsertOneFacturaArgs } from "./args/UpsertOneFacturaArgs";
+import { Factura } from "../../../models/Factura";
+import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
+import { AggregateFactura } from "../../outputs/AggregateFactura";
+import { FacturaGroupBy } from "../../outputs/FacturaGroupBy";
+export declare class FacturaCrudResolver {
+    aggregateFactura(ctx: any, info: GraphQLResolveInfo, args: AggregateFacturaArgs): Promise<AggregateFactura>;
+    createManyFactura(ctx: any, info: GraphQLResolveInfo, args: CreateManyFacturaArgs): Promise<AffectedRowsOutput>;
+    createOneFactura(ctx: any, info: GraphQLResolveInfo, args: CreateOneFacturaArgs): Promise<Factura>;
+    deleteManyFactura(ctx: any, info: GraphQLResolveInfo, args: DeleteManyFacturaArgs): Promise<AffectedRowsOutput>;
+    deleteOneFactura(ctx: any, info: GraphQLResolveInfo, args: DeleteOneFacturaArgs): Promise<Factura | null>;
+    findFirstFactura(ctx: any, info: GraphQLResolveInfo, args: FindFirstFacturaArgs): Promise<Factura | null>;
+    facturas(ctx: any, info: GraphQLResolveInfo, args: FindManyFacturaArgs): Promise<Factura[]>;
+    factura(ctx: any, info: GraphQLResolveInfo, args: FindUniqueFacturaArgs): Promise<Factura | null>;
+    groupByFactura(ctx: any, info: GraphQLResolveInfo, args: GroupByFacturaArgs): Promise<FacturaGroupBy[]>;
+    updateManyFactura(ctx: any, info: GraphQLResolveInfo, args: UpdateManyFacturaArgs): Promise<AffectedRowsOutput>;
+    updateOneFactura(ctx: any, info: GraphQLResolveInfo, args: UpdateOneFacturaArgs): Promise<Factura | null>;
+    upsertOneFactura(ctx: any, info: GraphQLResolveInfo, args: UpsertOneFacturaArgs): Promise<Factura>;
+}

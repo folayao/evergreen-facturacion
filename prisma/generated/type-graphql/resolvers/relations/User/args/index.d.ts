@@ -1,0 +1,1 @@
+export { UserFacturasArgs } from "./UserFacturasArgs";
