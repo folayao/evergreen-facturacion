@@ -13,6 +13,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Button, MenuItem, Select } from '@mui/material';
 import { PrismaClient } from '@prisma/client';
+import { useState } from 'react';
 
 interface State {
     amount: string;
@@ -31,6 +32,13 @@ export default function facturacion() {
         showPassword: false,
     });
 
+    const [nombreCompleto, setNombreCompleto] = useState();
+    const [email, setEmail] = useState();
+    const [paisCliente, setpaisCliente] = useState();
+    const [moneda, setMoneda] = useState();
+    const [medioDePago, setMedioDePago] = useState();
+    const [monto, setMonto] = useState();
+    
     const handleChange =
         (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
             setValues({ ...values, [prop]: event.target.value });
@@ -57,12 +65,16 @@ export default function facturacion() {
                     label="Nombre y Apellidos"
                     id="outlined-start-adornment"
                     sx={{ m: 1, width: '25ch' }}
+                    onChange={()=>setNombreCompleto(nombreCompleto)}
+                    value={nombreCompleto}
                 />
 
                 <TextField
                     label="Email"
                     id="outlined-start-adornment"
                     sx={{ m: 1, width: '25ch' }}
+                    onChange={()=>setEmail(email)}
+                    value={email}
                     />
                 <TextField
                     label="Pais del Cliente"
@@ -78,6 +90,7 @@ export default function facturacion() {
                         sx={{ m: 1, width: '25ch' }}
                         // value={age}
                         label="Age"
+                        value={moneda}
                         // onChange={handleChange}
                         >
                         <MenuItem value={"COP"}>COP</MenuItem>
