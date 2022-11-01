@@ -14,9 +14,9 @@ function transformFields(fields) {
 }
 exports.transformFields = transformFields;
 function getPrismaFromContext(context) {
-    const prismaClient = context["prisma"];
+    const prismaClient = context["customPrisma"];
     if (!prismaClient) {
-        throw new Error("Unable to find Prisma Client in GraphQL context. Please provide it under the `context[\"prisma\"]` key.");
+        throw new Error("Unable to find Prisma Client in GraphQL context. Please provide it under the `context[\"customPrisma\"]` key.");
     }
     return prismaClient;
 }

@@ -4,19 +4,20 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import { ApolloServer } from 'apollo-server-micro';
 import Cors from 'micro-cors'
-import { buildSchema } from 'type-graphql'
 import { resolvers } from '../../prisma/generated/type-graphql';
-import prisma from '../../config/prisma'
-
-// const prisma = new PrismaClient();
+import { buildSchema } from 'type-graphql';
+//import prisma from '../../config/prisma' 
+const prisma = new PrismaClient();
 
 const cors = Cors({
     allowMethods: ['POST', 'GET', 'OPTIONS', 'HEAD']
 })
 
 interface Context {
-    prisma: PrismaClient;
+    customPrisma: PrismaClient;
+
 }
+
 export const config = {
     api:{
         bodyParser: false,
@@ -32,7 +33,7 @@ const serverGraphql = async (req: NextApiRequest, res: NextApiResponse) => {
     const server = new ApolloServer({
         schema: schema,
         introspection: true,
-        context: (): Context => ({ prisma })
+        context: (): Context => ({ customPrisma: prisma })
     });
     const start = server.start()
     await start;
