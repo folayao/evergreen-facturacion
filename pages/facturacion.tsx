@@ -11,7 +11,7 @@ import { gql, useMutation } from '@apollo/client';
 import { PrismaClient } from '@prisma/client';
 import axios from 'axios';
 
-export default function facturacion() {
+export default function Facturacion() {
   /*   const ADD_ONE_FACTURA = gql`
 mutation CreateOneFactura($data: FacturaCreateInput!) {
   createOneFactura(data: $data) {
@@ -73,8 +73,7 @@ mutation CreateOneFactura($data: FacturaCreateInput!) {
         <FormControl fullWidth>
           <InputLabel htmlFor='outlined-adornment-amount'>Pais Cliente</InputLabel>
           <Select
-            // value={age}
-            label='Age'
+            label='pais'
             value={pais}
             onChange={(e) => setpais(e.target.value)}
           >
@@ -144,7 +143,6 @@ mutation CreateOneFactura($data: FacturaCreateInput!) {
               setMonto(parseFloat(e.target.value));
             
             }}
-            startAdornment={<InputAdornment position='start'>$</InputAdornment>}
             label='Monto'
           />
         </FormControl>

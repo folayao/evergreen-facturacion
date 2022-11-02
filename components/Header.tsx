@@ -58,7 +58,7 @@ function Header() {
                         Evergreen-Finanzas
                     </Typography>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box key={`key`} sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -88,8 +88,7 @@ function Header() {
                             }}
                         >
                             {pages.map((page) => (
-                            <Link href={`/${page}`}>
-
+                            <Link key={page} href={`/${page}`}>
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
