@@ -1,8 +1,8 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import { ThemeProvider, createTheme } from '@mui/material'
+import '../styles/globals.css';
+import type { AppProps } from 'next/app';
+import { ThemeProvider, createTheme } from '@mui/material';
 import Layout from '../components/Layout';
-// import { ApolloProvider } from "@apollo/client";
+import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client';
 // import { useMemo } from 'react';
 
 const darkTheme = createTheme({
@@ -35,15 +35,26 @@ const darkTheme = createTheme({
 //   // Create the Apollo Client once in the client
 //   if (!apolloClient) apolloClient = _apolloClient;
 //   return _apolloClient;
-// }
+// 
+
+
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link:
+    new HttpLink({
+      uri:process.env.URI
+    
+})});
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-
-    <ThemeProvider theme={darkTheme}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ThemeProvider>
-  )
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={darkTheme}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
+   </ApolloProvider>
+  );
 }
