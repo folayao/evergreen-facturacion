@@ -1,71 +1,43 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Button, MenuItem, Select } from '@mui/material';
-import { PrismaClient } from '@prisma/client';
 import { useState } from 'react';
-
-interface State {
-    amount: string;
-    password: string;
-    weight: string;
-    weightRange: string;
-    showPassword: boolean;
-}
+import { gql, useMutation } from '@apollo/client';
 
 export default function facturacion() {
-    const [values, setValues] = React.useState<State>({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
 
-    const [nombreCompleto, setNombreCompleto] = useState();
-    const [email, setEmail] = useState();
-    const [paisCliente, setpaisCliente] = useState();
-    const [moneda, setMoneda] = useState();
-    const [medioDePago, setMedioDePago] = useState();
-    const [monto, setMonto] = useState();
+    const ADD_ONE_FACTURA = gql `
     
-    const handleChange =
-        (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-            setValues({ ...values, [prop]: event.target.value });
-        };
+    `
 
-    const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
-    };
 
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
+
+    const [nombreCompleto, setNombreCompleto] = useState('');
+    const [email, setEmail] = useState('');
+    const [paisCliente, setpaisCliente] = useState('');
+    const [moneda, setMoneda] = useState('');
+    const [medioDePago, setMedioDePago] = useState('');
+    const [monto, setMonto] = useState(0);
+
+    // Mapeo de paises
+
 
     return (
-        <Box sx={{m:10}}>
+        <Box sx={{ m: 10 }}>
             <h1>Facturación</h1>
-            
+
             <br />
             <div>
                 <TextField
                     label="Nombre y Apellidos"
                     id="outlined-start-adornment"
                     sx={{ m: 1, width: '25ch' }}
-                    onChange={()=>setNombreCompleto(nombreCompleto)}
+                    onChange={(e) => setNombreCompleto(e.target.value)}
                     value={nombreCompleto}
                 />
 
@@ -73,15 +45,28 @@ export default function facturacion() {
                     label="Email"
                     id="outlined-start-adornment"
                     sx={{ m: 1, width: '25ch' }}
-                    onChange={()=>setEmail(email)}
+                    onChange={(e) => setEmail(e.target.value)}
                     value={email}
-                    />
-                <TextField
-                    label="Pais del Cliente"
-                    id="outlined-start-adornment"
-                    sx={{ m: 1, width: '25ch' }}
-                    />
+                />
 
+
+                <FormControl fullWidth>
+                    <InputLabel htmlFor="outlined-adornment-amount">Pais Cliente</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        sx={{ m: 1, width: '25ch' }}
+                        // value={age}
+                        label="Age"
+                        value={paisCliente}
+                        onChange={e => setpaisCliente(e.target.value)}
+
+                    >
+                        <MenuItem value={"Colombia"}>Colombia</MenuItem>
+                        <MenuItem value={"Colombia"}>España</MenuItem>
+                        <MenuItem value={"Colombia"}>Estados unidos</MenuItem>
+                    </Select>
+                </FormControl>
                 <FormControl fullWidth>
                     <InputLabel htmlFor="outlined-adornment-amount">Moneda</InputLabel>
                     <Select
@@ -91,8 +76,8 @@ export default function facturacion() {
                         // value={age}
                         label="Age"
                         value={moneda}
-                        // onChange={handleChange}
-                        >
+                        onChange={(e) => setMoneda(e.target.value)}
+                    >
                         <MenuItem value={"COP"}>COP</MenuItem>
                         <MenuItem value={"EUR"}>EUR</MenuItem>
                         <MenuItem value={"USD"}>USD</MenuItem>
@@ -105,11 +90,14 @@ export default function facturacion() {
                         id="demo-simple-select"
                         sx={{ m: 1, width: '25ch' }}
                         // value={age}
-                        label="Age"
-                        // onChange={handleChange}
-                        >
-                        <MenuItem value={"efectivo"}>Efectivo</MenuItem>
-                        <MenuItem value={"credito"}>Credito</MenuItem>
+                        label="medio de pago"
+                        value={medioDePago}
+                        onChange={e => setMedioDePago(e.target.value)}
+
+                    >
+                        <MenuItem value={"efectivo"}>efectivo</MenuItem>
+                        <MenuItem value={"credito"}>credito</MenuItem>
+
                     </Select>
                 </FormControl>
                 <FormControl fullWidth>
@@ -117,13 +105,13 @@ export default function facturacion() {
                     <OutlinedInput
                         id="outlined-adornment-amount"
                         sx={{ m: 1, width: '25ch' }}
-                        value={values.amount}
-                        onChange={handleChange('amount')}
+                        value={monto}
+                        onChange={() => setMonto(monto)}
                         startAdornment={<InputAdornment position="start">$</InputAdornment>}
                         label="Amount"
-                        />
+                    />
                 </FormControl>
-            <Button variant="contained">Finalizar Factura</Button>
+                <Button variant="contained">Finalizar Factura</Button>
             </div>
 
         </Box>
